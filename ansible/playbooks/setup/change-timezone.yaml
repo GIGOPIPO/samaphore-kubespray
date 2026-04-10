@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Set timezone to Asia/Bangkok
+      community.general.timezone:
+        name: Asia/Bangkok
