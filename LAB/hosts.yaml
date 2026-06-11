@@ -1,0 +1,41 @@
+all:
+  hosts:
+    k8s-master-1-kpc-ecom-dev:
+      ansible_host: 172.29.201.33
+      ansible_user: root
+
+    k8s-worker-1-kpc-ecom-dev:
+      ansible_host: 172.29.201.87
+      ansible_user: root
+
+    k8s-worker-2-kpc-ecom-dev:
+      ansible_host: 172.29.201.24
+      ansible_user: root
+
+    k8s-worker-3-kpc-ecom-dev:
+      ansible_host: 172.29.201.174
+      ansible_user: root
+
+    k8s-worker-4-kpc-ecom-dev:
+      ansible_host: 172.29.201.111
+      ansible_user: root
+
+  children:
+    kube_control_plane:
+      hosts:
+        k8s-master-1-kpc-ecom-dev:
+    kube_node:
+      hosts:
+        k8s-worker-1-kpc-ecom-dev:
+        k8s-worker-2-kpc-ecom-dev:
+        k8s-worker-3-kpc-ecom-dev:
+        k8s-worker-4-kpc-ecom-dev:
+    etcd:
+      hosts:
+        k8s-master-1-kpc-ecom-dev:
+    k8s_cluster:
+      children:
+        kube_control_plane:
+        kube_node:
+    calico_rr:
+      hosts: {}
