@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+ 
+  tasks: 
+    - name: "Run a shell command on a remote host"
+      shell: ping -c4 google.com
+      register: info
+
+    - debug:
+        msg: "{{info.stdout}}"
+
+    
